@@ -1,0 +1,41 @@
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+def find_path(root, target):
+    if not root:
+        return None
+
+    if root.val == target:
+        return [root.val]
+
+    left_path = find_path(root.left, target)
+    if left_path is not None:
+        left_path.insert(0, root.val)
+        return left_path
+
+    right_path = find_path(root.right, target)
+    if right_path is not None:
+        right_path.insert(0, root.val)
+        return right_path
+
+    return None
+
+if __name__ == "__main__":
+    
+    root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left.left = TreeNode(4)
+    root.left.right = TreeNode(5)
+    root.right.left = TreeNode(6)
+    root.right.right = TreeNode(7)
+
+    target = 5
+    path = find_path(root, target)
+    if path:
+        print(f"Path to {target}: {' -> '.join(map(str, path))}")
+    else:
+        print(f"Destination {target} not found.")
